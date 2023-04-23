@@ -75,3 +75,19 @@ class Test_Web_Site:
         catalog_page.add_to_cart_select_products()
         catalog_page.go_to_cart()
         assert cart_page.cart_is_empty() is False
+
+    def test_checking_items_params_in_the_cart(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.is_catalog_menu_displayed()
+        home_page.go_to_categories_menu()
+        catalog_page = ProductCatalogPage(browser)
+        catalog_page.open()
+        catalog_page.page_is_loaded()
+        catalog_page.add_to_cart_select_products()
+        catalog_page.go_to_cart()
+        cart_page = CartPage(browser)
+        cart_page.open()
+        cart_page.page_is_loaded()
+        cart_page.contains_cart_product_affter_add()

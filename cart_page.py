@@ -2,16 +2,20 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from base_page import BasePage
 
+
 class CartLocators(BasePage):
     url_cart = 'https://babydream.by/cart'
     cart_is_empty = (By.XPATH, '//div[@class="cabinet-cart"]//span[@class="items cartCountGoods"]')
     return_to_catalog_button = (By.XPATH, "//div[@class='col-left']//a[@href='/catalog']")
-    button_remove = (By.XPATH, "//div/a[@class='remove-product deleteFromCartLink'][@href='/deleteCartGood?id=17822%3A0']")
+    button_remove = (
+        By.XPATH, "//div/a[@class='remove-product deleteFromCartLink'][@href='/deleteCartGood?id=17822%3A0']")
     button_plus_product = (By.XPATH, "//div[@class='jq-number__spin plus']")
     button_minus_product = (By.XPATH, "//div[@class='jq-number__spin minus']")
     checkout_buton = (By.XPATH, "//div[@class='box-btn']/a[@href='/order']")
-    product1_in_cart = (By.XPATH, "//div/a[@href='/igrushki/plyushevie_medvedi/myagkaya_plyushevaya_igrushka_medved_sunrain_martin_120_chaynaya_roza']")
-    product2_in_cart = (By.XPATH, "//div/a[@href='/haggi_vaggi__huggy_wuggy/myagkaya_igrushka_sunrain_hagi_vagi_i_kisi_misi_25sm_korichneviy']")
+    product1_in_cart = (By.XPATH,
+                        "//div/a[@href='/igrushki/plyushevie_medvedi/myagkaya_plyushevaya_igrushka_medved_sunrain_martin_120_chaynaya_roza']")
+    product2_in_cart = (By.XPATH,
+                        "//div/a[@href='/haggi_vaggi__huggy_wuggy/myagkaya_igrushka_sunrain_hagi_vagi_i_kisi_misi_25sm_korichneviy']")
     total_price = (By.XPATH, "//div[@class='cart-total-price']//span[@class='total']")
     price1 = (By.XPATH, "//div[@class='td'][2]/div/span[@class='price'][text()=82]")
     price2 = (By.XPATH, "//div[@class='td'][4]/div/span[@class='price'][text()=82]")
@@ -25,7 +29,33 @@ class CartPage(BasePage):
         super().__init__(driver)
         self.url = CartLocators.url_cart
         self.webdriver.get(self.url)
+
     def cart_is_empty(self) -> bool:
         return self.find_element(CartLocators.cart_is_empty).text == '0'
+
     def go_to_catalog(self):
         return self.find_element(CartLocators.catalog_button).click()
+
+    def get_cart_product_params(self, locator):
+        name = self.get_text_from_element(locator)
+        price = self.get_text_from_element((locator[0], locator[1] + '/../../../../../div[2]/div/span'))
+        quantity = self.find_element(
+            (locator[0], locator[1] + '/../../../../../div[3]//input[@class="updateQtyInput"]')).get_attribute('value')
+        total = self.get_text_from_element((locator[0], locator[1] + '/../../../../../div[4]/div/span'))
+        return {"name": name, "price": price, "quantity": quantity, "total": total}
+
+    def contains_cart_product_affter_add(self):
+        cart_products = [
+            self.get_cart_product_params(CartLocators.product1_in_cart),
+            self.get_cart_product_params(CartLocators.product2_in_cart)
+        ]
+        expected_products = [
+            {"name": 'Мягкая плюшевая игрушка Медведь SunRain Мартин 120 Чайная роза', "price": '82', "quantity": '1'},
+            {"name": 'Мягкая игрушка SunRain Хаги Ваги и Киси Миси 25см Коричневый', "price": '11', "quantity": '1'}
+        ]
+        i = 0
+        for cart_product in cart_products:
+            assert cart_product['name'] == expected_products[i]['name']
+            assert cart_product['price'] == expected_products[i]['price']
+            assert cart_product['quantity'] == expected_products[i]['quantity']
+            i = i + 1
