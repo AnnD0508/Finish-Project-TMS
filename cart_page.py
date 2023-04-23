@@ -17,6 +17,8 @@ class CartLocators(BasePage):
     price2 = (By.XPATH, "//div[@class='td'][4]/div/span[@class='price'][text()=82]")
     quantity1 = (By.XPATH, "//div/div[@class='jq-number__field'][1]")
     return_to_home = (By.XPATH, "//div/ol[@class='breadcrumb']//a[@href='/']")
+    catalog_button = (By.XPATH, "//li/a[@class='catalog']")
+
 
 class CartPage(BasePage):
     def __init__(self, driver: webdriver.Chrome):
@@ -25,3 +27,5 @@ class CartPage(BasePage):
         self.webdriver.get(self.url)
     def cart_is_empty(self) -> bool:
         return self.find_element(CartLocators.cart_is_empty).text == '0'
+    def go_to_catalog(self):
+        return self.find_element(CartLocators.catalog_button).click()
