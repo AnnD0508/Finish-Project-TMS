@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from base_page import BasePage
-from selenium.webdriver import ActionChains
 
 
 class HomeLocators(BasePage):
@@ -46,5 +45,20 @@ class HomePage(BasePage):
         self.click_element(HomeLocators.cart_button)
     def go_to_categories_menu(self):
         self.click_element(HomeLocators.catalog_menu)
+    def search(self, text):
+        self.click_element(HomeLocators.search_button)
+        self.send_keys(HomeLocators.search_field, text)
+        self.click_element(HomeLocators.search_submit)
+
+    def check_search_results(self, text):
+        results = self.find_elements(HomeLocators.search_results)
+        for result in results:
+            assert text.lower() in result.text.lower(), f"Text '{text}' not found in search results."
+
+    def search_and_match_products(self):
+        self.search('медведь')
+        self.check_search_results('медведь')
+        self.search('качалка')
+        self.check_search_results('качалка')
 
 

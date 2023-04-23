@@ -51,3 +51,9 @@ class Test_Web_Site:
         cart_page.open()
         cart_page.page_is_loaded()
         assert cart_page.cart_is_empty() is False
+
+    def test_search_result_matches_the_given_search_product(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.search_and_match_products()
