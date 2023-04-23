@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from base_page import BasePage
+import time
 
 
 class CartLocators(BasePage):
@@ -78,3 +79,15 @@ class CartPage(BasePage):
             i += 1
         actual_total_price = float(self.get_text_from_element(CartLocators.total_price))
         assert expected_total_price == actual_total_price, f"Expected total price {expected_total_price}, but got {actual_total_price}."
+
+    def add_quantity(self):
+        self.click_element(CartLocators.button_plus_product, 2)
+        time.sleep(2)
+        return
+
+    def change_quantity_add_product_in_cart(self):
+        before_quantity = self.get_cart_product_params(CartLocators.product2_in_cart)['quantity']
+        self.click_element(CartLocators.button_plus_product)
+        after_add_quantity = self.get_cart_product_params(CartLocators.product2_in_cart)['quantity']
+        assert after_add_quantity == str(
+            int(before_quantity) + 1), f"Expected quantity to be {int(before_quantity) + 1}, but got {after_add_quantity}."
