@@ -1,13 +1,6 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import pytest
 from home_page import HomePage
 from cart_page import CartPage
-from cart_page import CartLocators
 from catalog_page import ProductCatalogPage
-from selenium.webdriver import ActionChains
-from checkout_page import CheckoutPage
-from login_page import LoginPage
 
 
 class Test_Web_Site:
@@ -33,3 +26,13 @@ class Test_Web_Site:
         catalog_page.open()
         catalog_page.page_is_loaded()
         catalog_page.check_catalog_elements_is_clicable()
+
+    def test_cart_page_is_empty(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_cart()
+        cart_page = CartPage(browser)
+        cart_page.open()
+        cart_page.page_is_loaded()
+        assert cart_page.cart_is_empty() is True
