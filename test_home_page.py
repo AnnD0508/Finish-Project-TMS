@@ -22,3 +22,14 @@ class Test_Web_Site:
         assert home_page.is_cart_button_displayed()
         assert home_page.is_link_account_displayed()
         assert home_page.is_link_to_ask_a_question_displayed
+
+    def test_all_elements_products_catalog_is_clickable(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.is_catalog_menu_displayed()
+        home_page.go_to_categories_menu()
+        catalog_page = ProductCatalogPage(browser)
+        catalog_page.open()
+        catalog_page.page_is_loaded()
+        catalog_page.check_catalog_elements_is_clicable()
