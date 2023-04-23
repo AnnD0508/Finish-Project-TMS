@@ -98,3 +98,6 @@ class CartPage(BasePage):
         after_reduce_quantity = self.get_cart_product_params(CartLocators.product2_in_cart)['quantity']
         assert after_reduce_quantity == str(
             int(before_quantity) -1 ), f"Expected quantity to be {int(before_quantity) + 1}, but got {after_reduce_quantity}."
+
+    def remove_product_from_cart(self):
+        return self.find_element(CartLocators.button_remove)
