@@ -101,3 +101,6 @@ class CartPage(BasePage):
 
     def remove_product_from_cart(self):
         return self.find_element(CartLocators.button_remove)
+
+    def go_from_cart_to_home(self):
+        self.click_element(CartLocators.return_to_home)
