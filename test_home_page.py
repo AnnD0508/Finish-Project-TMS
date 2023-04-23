@@ -36,3 +36,18 @@ class Test_Web_Site:
         cart_page.open()
         cart_page.page_is_loaded()
         assert cart_page.cart_is_empty() is True
+
+    def test_cart_page_is_not_empty(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_categories_menu()
+        catalog_page = ProductCatalogPage(browser)
+        catalog_page.open()
+        catalog_page.page_is_loaded()
+        catalog_page.add_to_cart_select_product1()
+        catalog_page.go_to_cart()
+        cart_page = CartPage(browser)
+        cart_page.open()
+        cart_page.page_is_loaded()
+        assert cart_page.cart_is_empty() is False
