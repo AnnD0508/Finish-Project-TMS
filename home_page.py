@@ -42,4 +42,9 @@ class HomePage(BasePage):
         return self.find_element(HomeLocators.account_button)
     def is_link_to_ask_a_question_displayed(self, url):
         return self.find_element(HomeLocators.link_to_ask_a_question)
+    def go_to_cart(self):
+        self.click_element(HomeLocators.cart_button)
+    def go_to_categories_menu(self):
+        self.click_element(HomeLocators.catalog_menu)
+
 
