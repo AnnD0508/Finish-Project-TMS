@@ -59,3 +59,22 @@ class CartPage(BasePage):
             assert cart_product['price'] == expected_products[i]['price']
             assert cart_product['quantity'] == expected_products[i]['quantity']
             i = i + 1
+
+    def the_total_amount_corresponds(self):
+        cart_products = [
+            self.get_cart_product_params(CartLocators.product1_in_cart),
+            self.get_cart_product_params(CartLocators.product2_in_cart)
+        ]
+        test_products = [
+            {"price": '82', "quantity": '1'},
+            {"price": '11', "quantity": '1'}
+        ]
+        expected_total_price = 0
+        i = 0
+        for cart_product in cart_products:
+            assert cart_product['price'] == test_products[i]['price']
+            assert cart_product['quantity'] == test_products[i]['quantity']
+            expected_total_price += float(cart_product['price']) * int(cart_product['quantity'])
+            i += 1
+        actual_total_price = float(self.get_text_from_element(CartLocators.total_price))
+        assert expected_total_price == actual_total_price, f"Expected total price {expected_total_price}, but got {actual_total_price}."
