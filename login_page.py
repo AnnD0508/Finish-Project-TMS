@@ -178,3 +178,17 @@ class LoginPage(BasePage):
         self.click_element(LoginLocators.field_register_password)
         assert self.get_text_from_element(
             LoginLocators.message_password_confirmation_is_not_correct) == 'Подтвердите пароль должен быть повторен в точности.'
+
+    def user_registration_is_email_already_busy(self):
+        name = 'Ilon'
+        last_name = 'Mask'
+        phone = '+375257777777'
+        email = '3333333@mail.ru'
+        password = '12345678'
+        self.send_keys(LoginLocators.field_register_name, name)
+        self.send_keys(LoginLocators.field_register_last_name, last_name)
+        self.send_keys(LoginLocators.field_register_phone, phone)
+        self.send_keys(LoginLocators.field_register_email, email)
+        self.send_keys(LoginLocators.field_register_password, password)
+        self.send_keys(LoginLocators.field_register_password_confirmation, password)
+        assert self.get_text_from_element(LoginLocators.message_email_is_already_busy) == 'E-mail "3333333@mail.ru" уже занят.'

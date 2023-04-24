@@ -333,3 +333,13 @@ class Test_Web_Site:
         login_page.page_is_loaded()
         login_page.click_button_register()
         login_page.user_registration_password_confirmation_is_not_correct()
+
+    def test_attempt_to_register_a_user_with_an_already_registered_email(self,browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_account()
+        login_page = LoginPage(browser)
+        login_page.page_is_loaded()
+        login_page.click_button_register()
+        login_page.user_registration_is_email_already_busy()
