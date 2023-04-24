@@ -103,3 +103,6 @@ class CartPage(BasePage):
 
     def go_from_cart_to_catalog(self):
         self.click_element(CartLocators.return_to_catalog_button)
+
+    def go_to_order_form_page(self):
+        self.click_element(CartLocators.checkout_buton)
