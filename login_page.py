@@ -41,8 +41,8 @@ class LoginPage(BasePage):
     def click_button_came_in(self, timer=10):
         self.click_element(LoginLocators.button_to_came_in)
 
-    def email_is_empty(self) -> bool:
-        return self.get_text_from_element(
+    def email_is_empty(self):
+        assert self.get_text_from_element(
             LoginLocators.email_is_incomplete_message) == 'Необходимо заполнить поле E-mail'
 
     def input_email_password_unregistered_user(self):
@@ -53,3 +53,16 @@ class LoginPage(BasePage):
 
     def message_about_invalid_input(self):
         assert self.get_text_from_element(LoginLocators.password_is_incomlete_message) == 'Не верный логин или пароль'
+
+    def entering_data_of_a_registered_user(self):
+        email = '5555555@gmail.com'
+        password = '123456789'
+        self.send_keys(LoginLocators.autorisation_email, email)
+        self.send_keys(LoginLocators.autorisation_password, password)
+
+    def click_button_cabinet_user(self):
+        self.click_element(LoginLocators.button_cabinet_user)
+        self.click_element(LoginLocators.button_my_account)
+
+    def user_cabinet_is_excepted(self):
+        assert self.webdriver.current_url == LoginLocators.url_user_cabinet
