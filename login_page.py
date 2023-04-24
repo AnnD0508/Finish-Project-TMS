@@ -121,3 +121,16 @@ class LoginPage(BasePage):
         self.send_keys(LoginLocators.field_register_password, password)
         self.send_keys(LoginLocators.field_register_password_confirmation, password)
         assert self.get_text_from_element(LoginLocators.message_field_name_is_empty) == 'Необходимо заполнить поле Имя, Фамилия.'
+
+    def user_registration_without_filling_email(self):
+        name = 'Ilon'
+        last_name = 'Mask'
+        phone = '+375257777777'
+        password = '12345678'
+        self.send_keys(LoginLocators.field_register_name, name)
+        self.send_keys(LoginLocators.field_register_last_name, last_name)
+        self.send_keys(LoginLocators.field_register_phone, phone)
+        self.click_element(LoginLocators.field_register_email)
+        self.send_keys(LoginLocators.field_register_password, password)
+        self.send_keys(LoginLocators.field_register_password_confirmation, password)
+        assert self.get_text_from_element(LoginLocators. message_field_register_is_email_empty) == 'Необходимо заполнить поле E-mail.'
