@@ -108,3 +108,16 @@ class LoginPage(BasePage):
         self.click_element(LoginLocators.field_register_password_confirmation)
         assert self.get_text_from_element(
             LoginLocators.message_password_less_than_three_characters) == 'Пароль слишком короткий (Минимум: 6 симв.).'
+
+    def user_registration_without_filling_name(self):
+        last_name = 'Mask'
+        phone = '+375257777777'
+        email = self.generate_email()
+        password = '12345678'
+        self.click_element(LoginLocators.field_register_name)
+        self.send_keys(LoginLocators. field_register_last_name, last_name)
+        self.send_keys(LoginLocators.field_register_phone, phone)
+        self.send_keys(LoginLocators.field_register_email, email)
+        self.send_keys(LoginLocators.field_register_password, password)
+        self.send_keys(LoginLocators.field_register_password_confirmation, password)
+        assert self.get_text_from_element(LoginLocators.message_field_name_is_empty) == 'Необходимо заполнить поле Имя, Фамилия.'
