@@ -61,4 +61,5 @@ class HomePage(BasePage):
         self.search('качалка')
         self.check_search_results('качалка')
 
-
+    def go_to_account(self):
+        self.click_element(HomeLocators.account_button)

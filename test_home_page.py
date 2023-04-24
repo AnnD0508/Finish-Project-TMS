@@ -2,6 +2,7 @@ from home_page import HomePage
 from cart_page import CartPage
 from catalog_page import ProductCatalogPage
 from checkout_page import CheckoutPage
+from login_page import LoginPage
 
 
 class Test_Web_Site:
@@ -223,3 +224,15 @@ class Test_Web_Site:
         catalog_page.open()
         catalog_page.page_is_loaded()
         catalog_page.setting_price_parameters()
+
+    def test_attempt_to_authorize_an_unregistered_user(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_account()
+        login_page = LoginPage(browser)
+        login_page.page_is_loaded()
+        login_page.input_password()
+        login_page.click_element_robot()
+        login_page.click_button_came_in()
+        login_page.email_is_empty()
