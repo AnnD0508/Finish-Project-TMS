@@ -29,6 +29,7 @@ class ProductCatalogPage(BasePage):
         self.webdriver.get(self.url)
     def go_to_cart(self):
         return self.find_element(ProductCatalogLocators.cart_button).click()
+
     def add_to_cart_select_products(self):
         action = ActionChains(self.webdriver)
         action.move_to_element(self.find_element(ProductCatalogLocators.selection2_of_toys_add_in_cart)).perform()

@@ -357,3 +357,22 @@ class Test_Web_Site:
         login_page.click_register()  # TODO: need breakpoint to fill captcha
         login_page.click_button_cabinet_user()
         login_page.user_cabinet_is_excepted()
+
+    def test_checkout_unregistered_user(self,browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.is_catalog_menu_displayed()
+        home_page.go_to_categories_menu()
+        catalog_page = ProductCatalogPage(browser)
+        catalog_page.open()
+        catalog_page.page_is_loaded()
+        catalog_page.add_to_cart_select_product1()
+        catalog_page.go_to_cart()
+        cart_page = CartPage(browser)
+        cart_page.open()
+        cart_page.page_is_loaded()
+        cart_page.go_to_order_form_page()
+        checkout_page = CheckoutPage(browser)
+        checkout_page.page_is_loaded()
+        checkout_page.date_input_user_unregistrated()
