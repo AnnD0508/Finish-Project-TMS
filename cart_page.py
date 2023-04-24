@@ -22,7 +22,6 @@ class CartLocators(BasePage):
     price2 = (By.XPATH, "//div[@class='td'][4]/div/span[@class='price'][text()=82]")
     quantity1 = (By.XPATH, "//div/div[@class='jq-number__field'][1]")
     return_to_home = (By.XPATH, "//div/ol[@class='breadcrumb']//a[@href='/']")
-    catalog_button = (By.XPATH, "//li/a[@class='catalog']")
 
 
 class CartPage(BasePage):
@@ -33,9 +32,6 @@ class CartPage(BasePage):
 
     def cart_is_empty(self) -> bool:
         return self.find_element(CartLocators.cart_is_empty).text == '0'
-
-    def go_to_catalog(self):
-        return self.find_element(CartLocators.catalog_button).click()
 
     def get_cart_product_params(self, locator):
         name = self.get_text_from_element(locator)
@@ -104,3 +100,6 @@ class CartPage(BasePage):
 
     def go_from_cart_to_home(self):
         self.click_element(CartLocators.return_to_home)
+
+    def go_from_cart_to_catalog(self):
+        self.click_element(CartLocators.return_to_catalog_button)

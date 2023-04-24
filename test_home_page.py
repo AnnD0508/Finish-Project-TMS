@@ -71,7 +71,7 @@ class Test_Web_Site:
         cart_page.open()
         cart_page.page_is_loaded()
         assert cart_page.cart_is_empty() is True
-        cart_page.go_to_catalog()
+        cart_page.go_from_cart_to_catalog()
         catalog_page.add_to_cart_select_products()
         catalog_page.go_to_cart()
         assert cart_page.cart_is_empty() is False
@@ -177,3 +177,20 @@ class Test_Web_Site:
         cart_page.go_from_cart_to_home()
         home_page.open()
         home_page.page_is_loaded()
+
+    def test_go_from_cart_to_catalog_page(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.is_catalog_menu_displayed()
+        home_page.go_to_categories_menu()
+        catalog_page = ProductCatalogPage(browser)
+        catalog_page.open()
+        catalog_page.page_is_loaded()
+        catalog_page.add_to_cart_select_products()
+        catalog_page.go_to_cart()
+        cart_page = CartPage(browser)
+        cart_page.open()
+        cart_page.page_is_loaded()
+        cart_page.go_from_cart_to_catalog()
+        catalog_page.page_is_loaded()
