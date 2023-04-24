@@ -192,3 +192,22 @@ class LoginPage(BasePage):
         self.send_keys(LoginLocators.field_register_password, password)
         self.send_keys(LoginLocators.field_register_password_confirmation, password)
         assert self.get_text_from_element(LoginLocators.message_email_is_already_busy) == 'E-mail "3333333@mail.ru" уже занят.'
+
+    def date_input_user_registration(self):
+        name = 'Ilon'
+        last_name = 'Mask'
+        phone = '+375257777777'
+        email = self.generate_email()
+        password = '12345678'
+        self.send_keys(LoginLocators.field_register_name, name)
+        self.send_keys(LoginLocators.field_register_last_name, last_name)
+        self.send_keys(LoginLocators.field_register_phone, phone)
+        self.send_keys(LoginLocators.field_register_email, email)
+        self.send_keys(LoginLocators.field_register_password, password)
+        self.send_keys(LoginLocators.field_register_password_confirmation, password)
+
+    def click_element_robot_registration(self, timer=10):
+        self.click_element(LoginLocators.checkbox_not_robot)
+
+    def click_register(self, timer=10):
+        self.click_element(LoginLocators.button_clic_register)
