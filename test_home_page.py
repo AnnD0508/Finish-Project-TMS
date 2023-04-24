@@ -213,3 +213,13 @@ class Test_Web_Site:
         cart_page.go_to_order_form_page()
         checkout_page = CheckoutPage(browser)
         checkout_page.page_is_loaded()
+
+    def test_max_price_slider(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.is_catalog_menu_displayed()
+        catalog_page = ProductCatalogPage(browser)
+        catalog_page.open()
+        catalog_page.page_is_loaded()
+        catalog_page.setting_price_parameters()
