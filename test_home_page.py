@@ -236,3 +236,15 @@ class Test_Web_Site:
         login_page.click_element_robot()
         login_page.click_button_came_in()
         login_page.email_is_empty()
+
+    def test_date_entry_no_unregistered_user(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_account()
+        login_page = LoginPage(browser)
+        login_page.page_is_loaded()
+        login_page.input_email_password_unregistered_user()
+        login_page.click_element_robot()
+        login_page.click_button_came_in()
+        login_page.message_about_invalid_input()
