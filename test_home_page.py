@@ -234,7 +234,7 @@ class Test_Web_Site:
         login_page.page_is_loaded()
         login_page.input_password()
         login_page.click_element_robot()
-        login_page.click_button_came_in()
+        login_page.click_button_came_in()  # TODO: need breakpoint to fill captcha
         login_page.email_is_empty()
 
     def test_date_entry_no_unregistered_user(self, browser):
@@ -246,5 +246,18 @@ class Test_Web_Site:
         login_page.page_is_loaded()
         login_page.input_email_password_unregistered_user()
         login_page.click_element_robot()
-        login_page.click_button_came_in()
+        login_page.click_button_came_in()  # TODO: need breakpoint to fill captcha
         login_page.message_about_invalid_input()
+
+    def test_registered_user_authorization(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_account()
+        login_page = LoginPage(browser)
+        login_page.page_is_loaded()
+        login_page.entering_data_of_a_registered_user()
+        login_page.click_element_robot()
+        login_page.click_button_came_in()  # TODO: need breakpoint to fill captcha
+        login_page.click_button_cabinet_user()
+        login_page.user_cabinet_is_excepted()
