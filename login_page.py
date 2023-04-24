@@ -161,3 +161,20 @@ class LoginPage(BasePage):
         self.send_keys(LoginLocators.field_register_password, password)
         self.send_keys(LoginLocators.field_register_password_confirmation, password)
         assert self.get_text_from_element(LoginLocators.message_field_phone_is_empty) == 'Необходимо заполнить поле Телефон.'
+
+    def user_registration_password_confirmation_is_not_correct(self):
+        name = 'Ilon'
+        last_name = 'Mask'
+        phone = '+375257777777'
+        email = self.generate_email()
+        password = '12345678'
+        password_confirmation = '123456789'
+        self.send_keys(LoginLocators.field_register_name, name)
+        self.send_keys(LoginLocators.field_register_last_name, last_name)
+        self.send_keys(LoginLocators.field_register_phone, phone)
+        self.send_keys(LoginLocators.field_register_email, email)
+        self.send_keys(LoginLocators.field_register_password, password)
+        self.send_keys(LoginLocators.field_register_password_confirmation, password_confirmation)
+        self.click_element(LoginLocators.field_register_password)
+        assert self.get_text_from_element(
+            LoginLocators.message_password_confirmation_is_not_correct) == 'Подтвердите пароль должен быть повторен в точности.'
