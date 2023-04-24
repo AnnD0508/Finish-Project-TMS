@@ -66,11 +66,26 @@ class CheckoutPage(BasePage):
         assert self.get_text_from_element(
             CheckoutLocators.message_ordering_field_name) == 'Необходимо заполнить поле Имя.'
 
-        def attempt_to_place_an_order_without_filling_in_the_name(self):
-            name = 'Marfa'
-            phone = '+375257777777'
-            self.send_keys(CheckoutLocators.ordering_field_name, name)
-            self.send_keys(CheckoutLocators.ordering_field_phone_number, phone)
-            self.click_element(CheckoutLocators.checkout_button)
-            assert self.get_text_from_element(
-                CheckoutLocators.message_ordering_field_name) == 'Необходимо заполнить поле E-mail.'
+    def attempt_to_place_an_order_without_filling_in_the_email(self):
+        name = 'Marfa'
+        phone = '+375257777777'
+        self.send_keys(CheckoutLocators.ordering_field_name, name)
+        self.send_keys(CheckoutLocators.ordering_field_phone_number, phone)
+        self.click_element(CheckoutLocators.checkout_button)
+        assert self.get_text_from_element(CheckoutLocators.message_ordering_field_email) == 'Необходимо заполнить поле E-mail.'
+
+    def attempt_to_place_an_order_without_filling_in_the_email(self):
+        name = 'Marfa'
+        phone = '+375257777777'
+        self.send_keys(CheckoutLocators.ordering_field_name, name)
+        self.send_keys(CheckoutLocators.ordering_field_phone_number, phone)
+        self.click_element(CheckoutLocators.checkout_button)
+        assert self.get_text_from_element(CheckoutLocators.message_ordering_field_email) == 'Необходимо заполнить поле E-mail.'
+
+    def attempt_to_place_an_order_without_filling_in_the_phone(self):
+        name = 'Marfa'
+        email = self.generate_email()
+        self.send_keys(CheckoutLocators.ordering_field_name, name)
+        self.send_keys(CheckoutLocators.ordering_field_email, email)
+        self.click_element(CheckoutLocators.checkout_button)
+        assert self.get_text_from_element(CheckoutLocators.message_ordering_field_phone_number) == 'Необходимо заполнить поле Телефон.'

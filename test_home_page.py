@@ -413,6 +413,25 @@ class Test_Web_Site:
         cart_page.go_to_order_form_page()
         checkout_page = CheckoutPage(browser)
         checkout_page.page_is_loaded()
-        checkout_page.attempt_to_place_an_order_without_filling_in_the_name()
+        checkout_page.attempt_to_place_an_order_without_filling_in_the_email()
+
+    def test_attempt_to_place_an_order_without_filling_in_the_phone(self,browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.is_catalog_menu_displayed()
+        home_page.go_to_categories_menu()
+        catalog_page = ProductCatalogPage(browser)
+        catalog_page.open()
+        catalog_page.page_is_loaded()
+        catalog_page.add_to_cart_select_product1()
+        catalog_page.go_to_cart()
+        cart_page = CartPage(browser)
+        cart_page.open()
+        cart_page.page_is_loaded()
+        cart_page.go_to_order_form_page()
+        checkout_page = CheckoutPage(browser)
+        checkout_page.page_is_loaded()
+        checkout_page.attempt_to_place_an_order_without_filling_in_the_phone()
 
 
