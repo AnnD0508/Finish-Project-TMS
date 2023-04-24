@@ -343,3 +343,17 @@ class Test_Web_Site:
         login_page.page_is_loaded()
         login_page.click_button_register()
         login_page.user_registration_is_email_already_busy()
+
+    def test_registration_new_user(self,browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_account()
+        login_page = LoginPage(browser)
+        login_page.page_is_loaded()
+        login_page.click_button_register()
+        login_page.date_input_user_registration()
+        login_page.click_element_robot_registration()
+        login_page.click_register()  # TODO: need breakpoint to fill captcha
+        login_page.click_button_cabinet_user()
+        login_page.user_cabinet_is_excepted()
