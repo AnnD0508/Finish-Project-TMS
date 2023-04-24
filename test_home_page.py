@@ -261,3 +261,16 @@ class Test_Web_Site:
         login_page.click_button_came_in()  # TODO: need breakpoint to fill captcha
         login_page.click_button_cabinet_user()
         login_page.user_cabinet_is_excepted()
+
+    def test_entering_an_incorrect_registered_user_password(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_account()
+        login_page = LoginPage(browser)
+        login_page.page_is_loaded()
+        login_page.entering_an_incorrect_registered_user_password()
+        login_page.click_element_robot()
+        login_page.click_button_came_in()  # TODO: need breakpoint to fill captcha
+        login_page.message_about_invalid_input()
+

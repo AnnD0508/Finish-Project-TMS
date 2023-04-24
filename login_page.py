@@ -66,3 +66,9 @@ class LoginPage(BasePage):
 
     def user_cabinet_is_excepted(self):
         assert self.webdriver.current_url == LoginLocators.url_user_cabinet
+
+    def entering_an_incorrect_registered_user_password(self):
+        email = '5555555@gmail.com'
+        password = '12345678'
+        self.send_keys(LoginLocators.autorisation_email, email)
+        self.send_keys(LoginLocators.autorisation_password, password)
