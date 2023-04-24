@@ -274,3 +274,12 @@ class Test_Web_Site:
         login_page.click_button_came_in()  # TODO: need breakpoint to fill captcha
         login_page.message_about_invalid_input()
 
+    def test_entering_password_entry_less_than_three_characters(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.go_to_account()
+        login_page = LoginPage(browser)
+        login_page.page_is_loaded()
+        login_page.click_button_register()
+        login_page.user_registration_password_entry_less_than_three_characters()
