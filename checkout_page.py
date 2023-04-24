@@ -15,6 +15,9 @@ class CheckoutLocators(BasePage):
     checkout_button = (By.XPATH, "//div/button[@class='btn buttonMakeOrder']")
     message_about_successful_ordering = (By.XPATH, "//div/h3[@class='title'][text()='Ваш заказ успешно оформлен']")
     button_continue_shopping = (By.XPATH, "//div/a[@class='btn'][@href ='/catalog']")
+    message_ordering_field_name = (By.XPATH, "//div[@class='errorMessage'][text()='Необходимо заполнить поле Имя.']")
+    message_ordering_field_email = (By.XPATH, "//div[@class='errorMessage'][text()='Необходимо заполнить поле E-mail.']")
+    message_ordering_field_phone_number = (By.XPATH, "//div[@class='errorMessage'][text()='Необходимо заполнить поле Телефон.']")
 
 class CheckoutPage(BasePage):
 
@@ -42,3 +45,23 @@ class CheckoutPage(BasePage):
         self.click_element(CheckoutLocators.checkout_button)
         assert self.get_text_from_element(CheckoutLocators.message_about_successful_ordering) == 'Ваш заказ успешно оформлен'
 
+    def date_input_user_unregistrated(self):
+        name = 'Marfa'
+        email = self.generate_email()
+        phone = '+375257777777'
+        self.send_keys(CheckoutLocators.ordering_field_name, name)
+        self.send_keys(CheckoutLocators.ordering_field_email, email)
+        self.send_keys(CheckoutLocators.ordering_field_phone_number, phone)
+        self.click_element(CheckoutLocators.ordering_field_delivery_method)
+        self.click_element(CheckoutLocators.ordering_field_adresse)
+        self.click_element(CheckoutLocators.checkout_button)
+        assert self.get_text_from_element(CheckoutLocators.message_about_successful_ordering) == 'Ваш заказ успешно оформлен'
+
+    def attempt_to_place_an_order_without_filling_in_the_name(self):
+        email = self.generate_email()
+        phone = '+375257777777'
+        self.send_keys(CheckoutLocators.ordering_field_email, email)
+        self.send_keys(CheckoutLocators.ordering_field_phone_number, phone)
+        self.click_element(CheckoutLocators.checkout_button)
+        assert self.get_text_from_element(
+            CheckoutLocators.message_ordering_field_name) == 'Необходимо заполнить поле Имя.'
