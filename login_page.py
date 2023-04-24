@@ -148,3 +148,16 @@ class LoginPage(BasePage):
         self.send_keys(LoginLocators.field_register_password, password)
         self.send_keys(LoginLocators.field_register_password_confirmation, password)
         assert self.get_text_from_element(LoginLocators.message_field_filling_is_not_correct) == 'E-mail не является правильным E-Mail адресом.'
+
+    def user_registration_without_filling_phone(self):
+        name = 'Ilon'
+        last_name = 'Mask'
+        email = self.generate_email()
+        password = '12345678'
+        self.send_keys(LoginLocators.field_register_name, name)
+        self.send_keys(LoginLocators. field_register_last_name, last_name)
+        self.click_element(LoginLocators.field_register_phone)
+        self.send_keys(LoginLocators.field_register_email, email)
+        self.send_keys(LoginLocators.field_register_password, password)
+        self.send_keys(LoginLocators.field_register_password_confirmation, password)
+        assert self.get_text_from_element(LoginLocators.message_field_phone_is_empty) == 'Необходимо заполнить поле Телефон.'
