@@ -18,7 +18,7 @@ class Test_Web_Site:
         assert home_page.is_link_account_displayed()
         assert home_page.is_link_to_ask_a_question_displayed
 
-    def test_all_elements_products_catalog_is_clickable(self, browser):
+    def test_all_elements_products_catalog_is_clicable(self, browser):
         home_page = HomePage(browser)
         home_page.open()
         home_page.page_is_loaded()
@@ -92,7 +92,7 @@ class Test_Web_Site:
         cart_page = CartPage(browser)
         cart_page.open()
         cart_page.page_is_loaded()
-        cart_page.contains_cart_product_affter_add()
+        cart_page.contains_cart_product_after_add()
 
     def test_total_amount_corresponds(self, browser):
         home_page = HomePage(browser)
@@ -108,7 +108,7 @@ class Test_Web_Site:
         cart_page = CartPage(browser)
         cart_page.open()
         cart_page.page_is_loaded()
-        cart_page.contains_cart_product_affter_add()
+        cart_page.contains_cart_product_after_add()
         cart_page.the_total_amount_corresponds()
 
     def test_checking_add_quantity_in_the_cart(self, browser):
@@ -434,4 +434,14 @@ class Test_Web_Site:
         checkout_page.page_is_loaded()
         checkout_page.attempt_to_place_an_order_without_filling_in_the_phone()
 
-
+    def test_products_price_filter(self, browser):
+        home_page = HomePage(browser)
+        home_page.open()
+        home_page.page_is_loaded()
+        home_page.is_catalog_menu_displayed()
+        catalog_page = ProductCatalogPage(browser)
+        catalog_page.open()
+        catalog_page.page_is_loaded()
+        catalog_page.setting_price_parameters()
+        catalog_page.click_button_filter()
+        catalog_page.the_list_prise_after_filter()

@@ -22,6 +22,8 @@ class ProductCatalogLocators(BasePage):
     the_maximum_price_value_slider = (By.XPATH, '//a[@class="ui-slider-handle ui-state-default ui-corner-all"][2]')
     the_maximum_price_text_value = (By.XPATH, '//div[@id="amount2"]')
     button_filter = (By.XPATH, '//form[@class="default models"]//button')
+    filter_product = (By.XPATH, "//div/div[@class='field-price']/div")
+
 class ProductCatalogPage(BasePage):
     def __init__(self, driver: webdriver.Chrome):
         super().__init__(driver)
@@ -29,6 +31,13 @@ class ProductCatalogPage(BasePage):
         self.webdriver.get(self.url)
     def go_to_cart(self):
         return self.find_element(ProductCatalogLocators.cart_button).click()
+
+    def check_catalog_elements_is_clicable(self):
+        categories_list = self.find_elements(ProductCatalogLocators.category)
+        for category in categories_list:
+            if not category.is_enabled() or not category.is_displayed():
+                return False
+        return True
 
     def add_to_cart_select_products(self):
         action = ActionChains(self.webdriver)
@@ -53,3 +62,20 @@ class ProductCatalogPage(BasePage):
             action_chains.drag_and_drop_by_offset(slider, -2, 0).perform()
             max_slider_value = int(self.get_text_from_element(ProductCatalogLocators.the_maximum_price_text_value))
         assert max_slider_value == 17
+
+
+    def get_product_price(self, element):
+        price = float(element.text.replace(' руб.', ''))
+        return price
+
+    def the_list_prise_after_filter(self):
+        self.setting_price_parameters()
+        products = self.find_elements(ProductCatalogLocators.filter_product)
+        prices = []
+        for product in products:
+            price = self.get_product_price(product)
+            prices.append(price)
+        for price in prices:
+            assert 0 <= price <= 17
+    def click_button_filter(self):
+        self.click_element(ProductCatalogLocators.button_filter)
