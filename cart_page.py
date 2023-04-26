@@ -41,7 +41,7 @@ class CartPage(BasePage):
         total = self.get_text_from_element((locator[0], locator[1] + '/../../../../../div[4]/div/span'))
         return {"name": name, "price": price, "quantity": quantity, "total": total}
 
-    def contains_cart_product_affter_add(self):
+    def contains_cart_product_after_add(self):
         cart_products = [
             self.get_cart_product_params(CartLocators.product1_in_cart),
             self.get_cart_product_params(CartLocators.product2_in_cart)
