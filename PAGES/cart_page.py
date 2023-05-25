@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from base_page import BasePage
+from BASE_PAGE.base_page import BasePage
 import time
 
 
