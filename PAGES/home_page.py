@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from base_page import BasePage
+from BASE_PAGE.base_page import BasePage
 
 
 class HomeLocators(BasePage):
@@ -39,7 +39,7 @@ class HomePage(BasePage):
         return self.find_element(HomeLocators.cart_button)
     def is_link_account_displayed(self):
         return self.find_element(HomeLocators.account_button)
-    def is_link_to_ask_a_question_displayed(self, url):
+    def is_link_to_ask_a_question_displayed(self):
         return self.find_element(HomeLocators.link_to_ask_a_question)
     def go_to_cart(self):
         self.click_element(HomeLocators.cart_button)

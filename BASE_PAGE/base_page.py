@@ -84,4 +84,4 @@ class BasePage:
         element.send_keys(text)
 
     def scroll_to_bottom(self):
-        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        self.webdriver.execute_script("window.scrollTo(0, document.body.scrollHeight);")

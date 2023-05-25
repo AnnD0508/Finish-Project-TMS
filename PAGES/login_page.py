@@ -1,8 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from base_page import BasePage
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.keys import Keys
+from BASE_PAGE.base_page import BasePage
 import random
 import string
 
